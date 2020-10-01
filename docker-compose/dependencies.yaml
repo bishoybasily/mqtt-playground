@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8.3-management-alpine
+    ports:
+      - 15672:15672/tcp
+      - 5672:5672/tcp
+      - 1883:1883/tcp
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=toor
+    networks:
+      - mqtt-playground
+
+  nodered:
+    container_name: nodered
+    image: nodered/node-red-docker:latest
+    ports:
+      - 1880:1880/tcp
+    networks:
+      - mqtt-playground
+
+networks:
+  mqtt-playground:
+    name: mqtt-playground
